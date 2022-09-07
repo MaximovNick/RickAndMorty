@@ -13,6 +13,7 @@
 		AD3EC29128C923C500E3B2B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD3EC28F28C923C500E3B2B4 /* LaunchScreen.storyboard */; };
 		AD3EC29F28C924C800E3B2B4 /* CharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3EC29E28C924C800E3B2B4 /* CharacterViewController.swift */; };
 		AD3EC2A128C9265200E3B2B4 /* RickAndMorty.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3EC2A028C9265200E3B2B4 /* RickAndMorty.swift */; };
+		AD3EC2A328C935A900E3B2B4 /* CharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3EC2A228C935A900E3B2B4 /* CharacterTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		AD3EC29228C923C500E3B2B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD3EC29E28C924C800E3B2B4 /* CharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewController.swift; sourceTree = "<group>"; };
 		AD3EC2A028C9265200E3B2B4 /* RickAndMorty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RickAndMorty.swift; sourceTree = "<group>"; };
+		AD3EC2A228C935A900E3B2B4 /* CharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 		AD3EC29B28C9242500E3B2B4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AD3EC2A228C935A900E3B2B4 /* CharacterTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 			files = (
 				AD3EC2A128C9265200E3B2B4 /* RickAndMorty.swift in Sources */,
 				AD3EC29F28C924C800E3B2B4 /* CharacterViewController.swift in Sources */,
+				AD3EC2A328C935A900E3B2B4 /* CharacterTableViewCell.swift in Sources */,
 				AD3EC28528C923C400E3B2B4 /* AppDelegate.swift in Sources */,
 				AD3EC28728C923C400E3B2B4 /* SceneDelegate.swift in Sources */,
 			);
