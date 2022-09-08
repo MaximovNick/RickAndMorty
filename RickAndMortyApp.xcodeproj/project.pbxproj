@@ -14,6 +14,7 @@
 		AD3EC29F28C924C800E3B2B4 /* CharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3EC29E28C924C800E3B2B4 /* CharacterViewController.swift */; };
 		AD3EC2A128C9265200E3B2B4 /* RickAndMorty.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3EC2A028C9265200E3B2B4 /* RickAndMorty.swift */; };
 		AD3EC2A328C935A900E3B2B4 /* CharacterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3EC2A228C935A900E3B2B4 /* CharacterTableViewCell.swift */; };
+		AD3EC2A528C951A500E3B2B4 /* NewtworManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3EC2A428C951A500E3B2B4 /* NewtworManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		AD3EC29E28C924C800E3B2B4 /* CharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewController.swift; sourceTree = "<group>"; };
 		AD3EC2A028C9265200E3B2B4 /* RickAndMorty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RickAndMorty.swift; sourceTree = "<group>"; };
 		AD3EC2A228C935A900E3B2B4 /* CharacterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTableViewCell.swift; sourceTree = "<group>"; };
+		AD3EC2A428C951A500E3B2B4 /* NewtworManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewtworManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 		AD3EC29A28C9241500E3B2B4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				AD3EC2A428C951A500E3B2B4 /* NewtworManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 			files = (
 				AD3EC2A128C9265200E3B2B4 /* RickAndMorty.swift in Sources */,
 				AD3EC29F28C924C800E3B2B4 /* CharacterViewController.swift in Sources */,
+				AD3EC2A528C951A500E3B2B4 /* NewtworManager.swift in Sources */,
 				AD3EC2A328C935A900E3B2B4 /* CharacterTableViewCell.swift in Sources */,
 				AD3EC28528C923C400E3B2B4 /* AppDelegate.swift in Sources */,
 				AD3EC28728C923C400E3B2B4 /* SceneDelegate.swift in Sources */,
