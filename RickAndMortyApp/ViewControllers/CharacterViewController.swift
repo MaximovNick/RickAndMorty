@@ -10,8 +10,13 @@ import UIKit
 class CharacterViewController: UIViewController {
     
     // MARK - Private Properties
-    private var rickAndMorty: RickAndMorty?
-    
+    private var rickAndMorty: RickAndMorty? {
+        didSet {
+            filteredCharacter = rickAndMorty?.results ?? []
+            tableView.reloadData()
+        }
+    }
+    private var filteredCharacter: [Character] = []
     
     private var tableView: UITableView = {
         let tableView = UITableView()
@@ -29,6 +34,7 @@ class CharacterViewController: UIViewController {
         setDelegates()
         setConstraints()
         setupNavigationBar()
+        fetchData(from: Link.rickAndMortyApi.rawValue)
     }
     
     private func setSubviews() {
@@ -55,9 +61,16 @@ class CharacterViewController: UIViewController {
     }
     
     private func fetchData(from url: String?) {
-        
+        NetworkManager.shared.fetchData(from: url) { result in
+            switch result {
+                
+            case .success(let rickAndMorty):
+                self.rickAndMorty = rickAndMorty
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
-
 }
 
 
@@ -67,12 +80,14 @@ extension CharacterViewController: UITableViewDelegate, UITableViewDataSource {
    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        filteredCharacter.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CharacterTableViewCell.identifier, for: indexPath) as? CharacterTableViewCell else { return UITableViewCell()}
         
+        let character = filteredCharacter[indexPath.row]
+        cell.configure(with: character)
         
         
         return cell
