@@ -21,7 +21,6 @@ class NetworkManager {
     
     // MARK: - Fetch Data
     func fetchData(from url: String?, with completion: @escaping(Result<RickAndMorty, NetworkError>) -> Void) {
-
         guard let url = URL(string: url ?? "") else {
             completion(.failure(.invalidURL))
             return
@@ -40,5 +39,17 @@ class NetworkManager {
                 completion(.failure(.decodingError))
             }
         }.resume()
+    }
+    
+    // MARK: - Fetch Image
+    func fetchImage(from url: String?, with completion: @escaping(Data) -> Void) {
+        guard let stringURL = url else { return }
+        guard let imageURL = URL(string: stringURL) else { return}
+        DispatchQueue.global().async {
+            guard let data = try? Data(contentsOf: imageURL) else { return }
+            DispatchQueue.main.async {
+                completion(data)
+            }
+        }
     }
 }
