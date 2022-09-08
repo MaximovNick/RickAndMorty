@@ -29,10 +29,8 @@ class CharacterTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         
         addSubview(nameLabel)
         addSubview(characterImageView)
@@ -44,6 +42,14 @@ class CharacterTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(with character: Character?) {
+        nameLabel.text = character?.name
+
+    }
+}
+
+// MARK: - Set constraints
+extension CharacterTableViewCell {
     
     private func setConstraints() {
         
@@ -60,5 +66,4 @@ class CharacterTableViewCell: UITableViewCell {
             nameLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
-    
 }
