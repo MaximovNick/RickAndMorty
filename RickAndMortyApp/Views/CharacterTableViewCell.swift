@@ -13,7 +13,6 @@ class CharacterTableViewCell: UITableViewCell {
     
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Test"
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -22,18 +21,18 @@ class CharacterTableViewCell: UITableViewCell {
     private let characterImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: "plus")
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = imageView.frame.height / 2
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = imageView.frame.width / 2
         return imageView
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        addSubview(nameLabel)
+
         addSubview(characterImageView)
+        addSubview(nameLabel)
         setConstraints()
         
     }
