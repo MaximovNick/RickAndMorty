@@ -24,7 +24,7 @@ class CharacterViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 70
@@ -77,7 +77,7 @@ class CharacterViewController: UIViewController {
 // MARK - UITableViewDelegate, UITableViewDataSource
 extension CharacterViewController: UITableViewDelegate, UITableViewDataSource {
     
-   
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         filteredCharacter.count
@@ -89,17 +89,24 @@ extension CharacterViewController: UITableViewDelegate, UITableViewDataSource {
         let character = filteredCharacter[indexPath.row]
         cell.configure(with: character)
         
-        
         return cell
     }
     
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let character = filteredCharacter[indexPath.row]
+        let characterDetailsVC = CharacterDetailsViewController()
+        
+        characterDetailsVC.character = character
+        navigationController?.pushViewController(characterDetailsVC, animated: true)
+    }
 }
 
-
+// Set constraints
 extension CharacterViewController {
     
     func setConstraints() {
-        
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),

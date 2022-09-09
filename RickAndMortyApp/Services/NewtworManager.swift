@@ -1,5 +1,5 @@
 //
-//  NewtworManager.swift
+//  NetworkManager.swift
 //  RickAndMortyApp
 //
 //  Created by Nikolai Maksimov on 08.09.2022.
