@@ -11,6 +11,8 @@ class CharacterDetailsViewController: UIViewController {
     
     var character: Character!
     
+    private var spinnerView = UIActivityIndicatorView()
+    
     private var descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -30,20 +32,20 @@ class CharacterDetailsViewController: UIViewController {
         super.viewDidLoad()
         title = character.name
         view.backgroundColor = .white
-        
+        showSpinner(in: view)
         descriptionLabel.text = character.description
         
         setupViews()
         setConstraints()
-        
+      
         fetchImage(from: character.image)
-        
     }
     
     private func fetchImage(from url: String?) {
         
         NetworkManager.shared.fetchImage(from: url) { imageData in
             self.characterImageView.image = UIImage(data: imageData)
+            self.spinnerView.stopAnimating()
         }
     }
     
@@ -54,16 +56,28 @@ class CharacterDetailsViewController: UIViewController {
     }
 }
 
+// MARK: - ActivityIndicator
+extension CharacterDetailsViewController {
+    private func showSpinner(in view: UIView) {
+        spinnerView = UIActivityIndicatorView(style: .large)
+        spinnerView.color = .white
+        spinnerView.startAnimating()
+        spinnerView.center = characterImageView.center
+        spinnerView.hidesWhenStopped = true
+        
+        view.addSubview(spinnerView)
+    }
+}
+
 // Set constraints
 extension CharacterDetailsViewController {
-    
     func setConstraints() {
         NSLayoutConstraint.activate([
         
             characterImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
             characterImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            characterImageView.widthAnchor.constraint(equalToConstant: 150),
-            characterImageView.heightAnchor.constraint(equalToConstant: 150),
+            characterImageView.widthAnchor.constraint(equalToConstant: 240),
+            characterImageView.heightAnchor.constraint(equalToConstant: 240),
         ])
         
         NSLayoutConstraint.activate([
