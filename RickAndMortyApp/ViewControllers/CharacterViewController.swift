@@ -48,6 +48,12 @@ class CharacterViewController: UIViewController {
             target: self,
             action: #selector(updateData))
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "Next",
+            style: .plain,
+            target: self,
+            action: #selector(updateData))
+        
         setSubviews()
         setDelegates()
         setConstraints()
@@ -106,7 +112,7 @@ class CharacterViewController: UIViewController {
     }
     
     @objc func updateData(_ sender: UIBarButtonItem) {
-        sender.tag == 1 ? fetchData(from: rickAndMorty?.info.next) : fetchData(from: rickAndMorty?.info.prev)
+        sender.title == "Next" ? fetchData(from: rickAndMorty?.info.next) : fetchData(from: rickAndMorty?.info.prev)
     }
 }
 
