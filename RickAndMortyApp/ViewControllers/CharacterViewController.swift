@@ -42,6 +42,11 @@ class CharacterViewController: UIViewController {
         super.viewDidLoad()
         tableView.rowHeight = 70
     
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            title: "Prev",
+            style: .plain,
+            target: self,
+            action: #selector(updateData))
         
         setSubviews()
         setDelegates()
@@ -98,6 +103,10 @@ class CharacterViewController: UIViewController {
             textField.font = UIFont.boldSystemFont(ofSize: 17)
             textField.textColor = .white
         }
+    }
+    
+    @objc func updateData(_ sender: UIBarButtonItem) {
+        sender.tag == 1 ? fetchData(from: rickAndMorty?.info.next) : fetchData(from: rickAndMorty?.info.prev)
     }
 }
 
