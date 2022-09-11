@@ -34,7 +34,7 @@ class CharacterDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = character.name
-        view.backgroundColor = .white
+//        view.backgroundColor = .black
         showSpinner(in: view)
         descriptionLabel.text = character.description
         
@@ -42,6 +42,10 @@ class CharacterDetailsViewController: UIViewController {
         setConstraints()
       
         fetchImage(from: character.image)
+        
+        if let topItem = navigationController?.navigationBar.topItem {
+            topItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        }
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: "Episodes",
@@ -98,7 +102,7 @@ extension CharacterDetailsViewController {
         ])
         
         NSLayoutConstraint.activate([
-            descriptionLabel.topAnchor.constraint(equalTo: characterImageView.bottomAnchor, constant: 10),
+            descriptionLabel.topAnchor.constraint(equalTo: characterImageView.bottomAnchor, constant: 20),
             descriptionLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             descriptionLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
         ])
