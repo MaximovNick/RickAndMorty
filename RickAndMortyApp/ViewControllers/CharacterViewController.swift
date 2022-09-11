@@ -71,6 +71,7 @@ class CharacterViewController: UIViewController {
         tableView.dataSource = self
     }
     
+    // Setup navigation Bar
     private func setupNavigationBar() {
         title = "Rick & Morty"
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -116,7 +117,6 @@ class CharacterViewController: UIViewController {
     }
 }
 
-
 // MARK - UITableViewDelegate, UITableViewDataSource
 extension CharacterViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -144,7 +144,9 @@ extension CharacterViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: - UISearchResultsUpdating
 extension CharacterViewController: UISearchResultsUpdating {
+    
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
     }

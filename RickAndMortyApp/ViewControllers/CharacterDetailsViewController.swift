@@ -17,12 +17,15 @@ class CharacterDetailsViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
+        label.font = UIFont(name: "Apple Color Emoji", size: 18)
         return label
     }()
     
     private let characterImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
         imageView.layer.cornerRadius = imageView.frame.width / 2
         return imageView
     }()
@@ -39,6 +42,20 @@ class CharacterDetailsViewController: UIViewController {
         setConstraints()
       
         fetchImage(from: character.image)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "Episodes",
+            style: .plain,
+            target: self,
+            action: #selector(getEpisode)
+        )
+    }
+    
+    @objc func getEpisode() {
+        let episodesVC = EpisodesViewController()
+        episodesVC.character = character
+        let navigationVC = UINavigationController(rootViewController: episodesVC)
+        present(navigationVC, animated: true)
     }
     
     private func fetchImage(from url: String?) {
@@ -81,10 +98,9 @@ extension CharacterDetailsViewController {
         ])
         
         NSLayoutConstraint.activate([
-            descriptionLabel.topAnchor.constraint(equalTo: characterImageView.bottomAnchor, constant: 20),
+            descriptionLabel.topAnchor.constraint(equalTo: characterImageView.bottomAnchor, constant: 10),
             descriptionLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             descriptionLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-            descriptionLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
         ])
     }
 }
