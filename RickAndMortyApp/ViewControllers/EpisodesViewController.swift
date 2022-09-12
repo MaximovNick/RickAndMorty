@@ -68,4 +68,12 @@ class EpisodesViewController: UITableViewController {
         }
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let episode = episodes[indexPath.row]
+        let episodeDetailsVC = EpisodeDetailsViewController()
+        episodeDetailsVC.episode = episode
+        navigationController?.pushViewController(episodeDetailsVC, animated: true)
+
+    }
 }
