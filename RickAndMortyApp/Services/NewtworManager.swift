@@ -66,6 +66,27 @@ class NetworkManager {
         }.resume()
     }
     
+    // MARK: - Fetch Character
+    func fetchCharacter(from url: String, completion: @escaping(Result<Character, NetworkError>) -> Void) {
+        guard let url = URL(string: url) else { return }
+        
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            guard let data = data else {
+                completion(.failure(.noData))
+                print(error?.localizedDescription ?? "no description")
+                return
+            }
+            do {
+                let character = try JSONDecoder().decode(Character.self, from: data)
+                DispatchQueue.main.async {
+                    completion(.success(character))
+                }
+            } catch {
+                completion(.failure(.decodingError))
+            }
+        }.resume()
+    }
+    
     // MARK: - Fetch Image
     func fetchImage(from url: String?, with completion: @escaping(Data) -> Void) {
         guard let stringURL = url else { return }

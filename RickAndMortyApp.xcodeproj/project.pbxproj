@@ -17,6 +17,7 @@
 		AD3EC2A528C951A500E3B2B4 /* NewtworManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3EC2A428C951A500E3B2B4 /* NewtworManager.swift */; };
 		AD3EC2A728CB3B7A00E3B2B4 /* CharacterDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3EC2A628CB3B7A00E3B2B4 /* CharacterDetailsViewController.swift */; };
 		AD3EC2AB28CE44F400E3B2B4 /* EpisodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3EC2AA28CE44F400E3B2B4 /* EpisodesViewController.swift */; };
+		AD3EC2AF28CFA56300E3B2B4 /* EpisodeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3EC2AE28CFA56300E3B2B4 /* EpisodeDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		AD3EC2A428C951A500E3B2B4 /* NewtworManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewtworManager.swift; sourceTree = "<group>"; };
 		AD3EC2A628CB3B7A00E3B2B4 /* CharacterDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsViewController.swift; sourceTree = "<group>"; };
 		AD3EC2AA28CE44F400E3B2B4 /* EpisodesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodesViewController.swift; sourceTree = "<group>"; };
+		AD3EC2AE28CFA56300E3B2B4 /* EpisodeDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				AD3EC29E28C924C800E3B2B4 /* CharacterViewController.swift */,
 				AD3EC2A628CB3B7A00E3B2B4 /* CharacterDetailsViewController.swift */,
 				AD3EC2AA28CE44F400E3B2B4 /* EpisodesViewController.swift */,
+				AD3EC2AE28CFA56300E3B2B4 /* EpisodeDetailsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 				AD3EC2AB28CE44F400E3B2B4 /* EpisodesViewController.swift in Sources */,
 				AD3EC29F28C924C800E3B2B4 /* CharacterViewController.swift in Sources */,
 				AD3EC2A528C951A500E3B2B4 /* NewtworManager.swift in Sources */,
+				AD3EC2AF28CFA56300E3B2B4 /* EpisodeDetailsViewController.swift in Sources */,
 				AD3EC2A328C935A900E3B2B4 /* CharacterTableViewCell.swift in Sources */,
 				AD3EC28528C923C400E3B2B4 /* AppDelegate.swift in Sources */,
 				AD3EC28728C923C400E3B2B4 /* SceneDelegate.swift in Sources */,
