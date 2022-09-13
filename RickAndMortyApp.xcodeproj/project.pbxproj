@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AD0ABC5E28D0906F00E61FDA /* CharacterInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0ABC5D28D0906F00E61FDA /* CharacterInfoViewController.swift */; };
 		AD3EC28528C923C400E3B2B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3EC28428C923C400E3B2B4 /* AppDelegate.swift */; };
 		AD3EC28728C923C400E3B2B4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3EC28628C923C400E3B2B4 /* SceneDelegate.swift */; };
 		AD3EC28E28C923C500E3B2B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD3EC28D28C923C500E3B2B4 /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AD0ABC5D28D0906F00E61FDA /* CharacterInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterInfoViewController.swift; sourceTree = "<group>"; };
 		AD3EC28128C923C400E3B2B4 /* RickAndMortyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RickAndMortyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD3EC28428C923C400E3B2B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD3EC28628C923C400E3B2B4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				AD3EC2A628CB3B7A00E3B2B4 /* CharacterDetailsViewController.swift */,
 				AD3EC2AA28CE44F400E3B2B4 /* EpisodesViewController.swift */,
 				AD3EC2AE28CFA56300E3B2B4 /* EpisodeDetailsViewController.swift */,
+				AD0ABC5D28D0906F00E61FDA /* CharacterInfoViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 				AD3EC2AF28CFA56300E3B2B4 /* EpisodeDetailsViewController.swift in Sources */,
 				AD3EC2A328C935A900E3B2B4 /* CharacterTableViewCell.swift in Sources */,
 				AD3EC28528C923C400E3B2B4 /* AppDelegate.swift in Sources */,
+				AD0ABC5E28D0906F00E61FDA /* CharacterInfoViewController.swift in Sources */,
 				AD3EC28728C923C400E3B2B4 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
