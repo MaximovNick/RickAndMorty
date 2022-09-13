@@ -8,9 +8,10 @@
 import UIKit
 
 class EpisodeDetailsViewController: UIViewController {
-
+    
     var episode: Episode!
     
+    //MARK: Private properties
     private var characters: [Character] = [] {
         didSet {
             if characters.count == episode.characters.count {
@@ -21,8 +22,8 @@ class EpisodeDetailsViewController: UIViewController {
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "fasfafafa"
         label.textColor = .white
+        label.font = UIFont(name: "Kefa Regular", size: 18)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -31,6 +32,8 @@ class EpisodeDetailsViewController: UIViewController {
     private let characterLabel: UILabel = {
         let label = UILabel()
         label.text = "Characters"
+        label.font = UIFont.systemFont(ofSize: 20)
+        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -43,38 +46,55 @@ class EpisodeDetailsViewController: UIViewController {
         return tableView
     }()
     
+    // MARK: - UIViewController Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
+        setCharacters()
         
+        view.backgroundColor = UIColor(
+            red: 21/255,
+            green: 32/255,
+            blue: 66/255,
+            alpha: 1
+        )
+        
+        title = episode.episode
+        descriptionLabel.text = episode.description
+        
+        tableView.rowHeight = 70
+        tableView.delegate = self
+        tableView.dataSource = self
         tableView.backgroundColor = UIColor(
             red: 21/255,
             green: 32/255,
             blue: 66/255,
             alpha: 1
         )
-
-        title = episode.episode
-        descriptionLabel.text = episode.description
-        
-        tableView.rowHeight = 70
-        
-        tableView.delegate = self
-        tableView.dataSource = self
         
         setupViews()
-        
         setConstraints()
     }
     
+    // MARK: - Private methods
     private func setupViews() {
         view.addSubview(descriptionLabel)
         view.addSubview(characterLabel)
         view.addSubview(tableView)
     }
     
-    
+    private func setCharacters() {
+        episode.characters.forEach { characterURL in
+            NetworkManager.shared.fetchCharacter(from: characterURL) { result in
+                switch result {
+                case .success(let character):
+                    self.characters.append(character)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -86,6 +106,14 @@ extension EpisodeDetailsViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CharacterTableViewCell.identifier, for: indexPath) as? CharacterTableViewCell else { return UITableViewCell() }
+        
+        cell.backgroundColor = UIColor(
+            red: 21/255,
+            green: 32/255,
+            blue: 66/255,
+            alpha: 0.7
+        )
+        
         let characterURL = episode.characters[indexPath.row]
         NetworkManager.shared.fetchCharacter(from: characterURL) { character in
             switch character {
@@ -97,13 +125,22 @@ extension EpisodeDetailsViewController: UITableViewDelegate, UITableViewDataSour
         }
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let character = characters[indexPath.row]
+        let characterDetailsVC = CharacterInfoViewController()
+        
+        characterDetailsVC.character = character
+        navigationController?.pushViewController(characterDetailsVC, animated: true)
+    }
 }
 
 // MARK: - SetConstraints
 extension EpisodeDetailsViewController {
     
     private func setConstraints() {
-    
+        
         NSLayoutConstraint.activate([
             descriptionLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
             descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -114,7 +151,7 @@ extension EpisodeDetailsViewController {
             characterLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 60),
             characterLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
-
+        
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: characterLabel.bottomAnchor, constant: 16),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
