@@ -9,11 +9,13 @@ import UIKit
 
 class EpisodesViewController: UITableViewController {
     
+    //MARK: Public properties
     var character: Character!
     var episodes: [Episode] = []
     
     private let identifier = "episodesViewController"
-
+    
+    // MARK: - UIViewController Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,6 +23,7 @@ class EpisodesViewController: UITableViewController {
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: identifier)
         tableView.rowHeight = 70
+        
         tableView.backgroundColor = UIColor(
             red: 21/255,
             green: 32/255,
@@ -36,19 +39,24 @@ class EpisodesViewController: UITableViewController {
             blue: 66/255,
             alpha: 0.7
         )
-    
+        
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.barTintColor = .white
     }
-
+    
     // MARK: - Table view data source
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         character.episode.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        cell.backgroundColor = UIColor(
+            red: 21/255,
+            green: 32/255,
+            blue: 66/255,
+            alpha: 0.7
+        )
         
         var content = cell.defaultContentConfiguration()
         let episodeURL = character.episode[indexPath.row]
@@ -74,6 +82,5 @@ class EpisodesViewController: UITableViewController {
         let episodeDetailsVC = EpisodeDetailsViewController()
         episodeDetailsVC.episode = episode
         navigationController?.pushViewController(episodeDetailsVC, animated: true)
-
     }
 }
