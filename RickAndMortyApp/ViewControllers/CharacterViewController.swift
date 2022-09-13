@@ -10,14 +10,9 @@ import UIKit
 class CharacterViewController: UIViewController {
     
     // MARK - Private Properties
+    private var rickAndMorty: RickAndMorty?
     private let searchController = UISearchController(searchResultsController: nil)
-    private var rickAndMorty: RickAndMorty? {
-        didSet {
-            filteredCharacter = rickAndMorty?.results ?? []
-            tableView.reloadData()
-        }
-    }
-    
+    private var filteredCharacter: [Character] = []
     private var searchBarIsEmpty: Bool {
         guard let text = searchController.searchBar.text else { return false }
         return text.isEmpty
@@ -27,21 +22,24 @@ class CharacterViewController: UIViewController {
         return searchController.isActive && !searchBarIsEmpty
     }
     
-    private var filteredCharacter: [Character] = []
-    
     private var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(CharacterTableViewCell.self, forCellReuseIdentifier: CharacterTableViewCell.identifier)
+        tableView.register(CharacterTableViewCell.self,
+                           forCellReuseIdentifier: CharacterTableViewCell.identifier
+        )
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
-  
-    // MARK: - UIViewController Methods
     
+    // MARK: - UIViewController Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.addSubview(tableView)
+        
         tableView.rowHeight = 70
-    
+        tableView.backgroundColor = .black
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             title: "Prev",
             style: .plain,
@@ -54,7 +52,6 @@ class CharacterViewController: UIViewController {
             target: self,
             action: #selector(updateData))
         
-        setSubviews()
         setDelegates()
         setConstraints()
         setupNavigationBar()
@@ -62,16 +59,12 @@ class CharacterViewController: UIViewController {
         fetchData(from: Link.rickAndMortyApi.rawValue)
     }
     
-    private func setSubviews() {
-        view.addSubview(tableView)
-    }
-    
+    // MARK: - Private Methods
     private func setDelegates() {
         tableView.delegate = self
         tableView.dataSource = self
     }
     
-    // Setup navigation Bar
     private func setupNavigationBar() {
         title = "Rick & Morty"
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -86,18 +79,21 @@ class CharacterViewController: UIViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
     }
     
+    // Fetch Data from URL
     private func fetchData(from url: String?) {
         NetworkManager.shared.fetchData(from: url) { result in
             switch result {
                 
             case .success(let rickAndMorty):
                 self.rickAndMorty = rickAndMorty
+                self.tableView.reloadData()
             case .failure(let error):
                 print(error)
             }
         }
     }
     
+    // Search Controller settings
     private func setupSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -113,7 +109,9 @@ class CharacterViewController: UIViewController {
     }
     
     @objc func updateData(_ sender: UIBarButtonItem) {
-        sender.title == "Next" ? fetchData(from: rickAndMorty?.info.next) : fetchData(from: rickAndMorty?.info.prev)
+        sender.title == "Next"
+        ? fetchData(from: rickAndMorty?.info.next)
+        : fetchData(from: rickAndMorty?.info.prev)
     }
 }
 
@@ -125,22 +123,36 @@ extension CharacterViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CharacterTableViewCell.identifier, for: indexPath) as? CharacterTableViewCell else { return UITableViewCell()}
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: CharacterTableViewCell.identifier,
+            for: indexPath) as? CharacterTableViewCell else {
+            return UITableViewCell()
+        }
         
-        let character = isFiltering ? filteredCharacter[indexPath.row] : rickAndMorty?.results[indexPath.row]
+        cell.backgroundColor = .black
+        var content = cell.defaultContentConfiguration()
+        content.imageProperties.cornerRadius = tableView.rowHeight / 2
+        cell.contentConfiguration = content
+        
+        let character = isFiltering
+        ? filteredCharacter[indexPath.row]
+        : rickAndMorty?.results[indexPath.row]
+        
         cell.configure(with: character)
         
         return cell
     }
     
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let character = filteredCharacter[indexPath.row]
+        let character = isFiltering
+        ? filteredCharacter[indexPath.row]
+        : rickAndMorty?.results[indexPath.row]
+        
         let characterDetailsVC = CharacterDetailsViewController()
         
-        characterDetailsVC.character = character
         navigationController?.pushViewController(characterDetailsVC, animated: true)
+        characterDetailsVC.character = character
     }
 }
 
