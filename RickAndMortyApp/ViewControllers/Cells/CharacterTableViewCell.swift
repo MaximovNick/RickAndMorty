@@ -11,9 +11,11 @@ class CharacterTableViewCell: UITableViewCell {
     
     static let identifier = "CharacterTableViewCell"
     
+    //MARK: Private properties
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
+        label.font = .boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -22,27 +24,29 @@ class CharacterTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.layer.cornerRadius = imageView.frame.height / 2
         imageView.clipsToBounds = true
         return imageView
     }()
     
+    // MARK: - init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         addSubview(characterImageView)
         addSubview(nameLabel)
         setConstraints()
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Public Methods
     func configure(with character: Character?) {
         nameLabel.text = character?.name
-        NetworkManager.shared.fetchImage(from: character?.image) { imageData in
+        NetworkManager.shared.fetchImage(from: character?.image) { [weak self] imageData in
+            guard let self = self else { return }
+            self.characterImageView.layer.cornerRadius = self.characterImageView.frame.height / 2
             self.characterImageView.image = UIImage(data: imageData)
         }
     }
