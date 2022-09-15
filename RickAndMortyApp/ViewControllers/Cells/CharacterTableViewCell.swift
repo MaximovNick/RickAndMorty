@@ -22,11 +22,17 @@ class CharacterTableViewCell: UITableViewCell {
     
     private let characterImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+    
+    private var imageURL: URL? {
+        didSet {
+            characterImageView.image = nil
+            updateImage()
+        }
+    }
     
     // MARK: - init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -36,18 +42,56 @@ class CharacterTableViewCell: UITableViewCell {
         addSubview(nameLabel)
         setConstraints()
     }
+        
+    override func layoutIfNeeded() {
+        super.layoutIfNeeded()
+        characterImageView.layer.cornerRadius = characterImageView.frame.height / 2
+        characterImageView.clipsToBounds = true
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Public Methods
     func configure(with character: Character?) {
-        nameLabel.text = character?.name
-        NetworkManager.shared.fetchImage(from: character?.image) { [weak self] imageData in
-            guard let self = self else { return }
-            self.characterImageView.layer.cornerRadius = self.characterImageView.frame.height / 2
-            self.characterImageView.image = UIImage(data: imageData)
+        nameLabel.text = character?.name ?? ""
+        imageURL = URL(string: character?.image ?? "")
+    }
+    
+    private func updateImage() {
+        guard let imageURL = imageURL else { return }
+        getImage(from: imageURL) { result in
+            switch result {
+            case .success(let image):
+                if imageURL == self.imageURL {
+                    self.characterImageView.image = image
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    // Cache
+    private func getImage(from url: URL, completion: @escaping(Result<UIImage, Error>) -> Void) {
+        // Get image from cache
+        if let cacheImage = ImageCache.shared.object(forKey: url.lastPathComponent as NSString) {
+//            print("Image from cache", url.lastPathComponent)
+            completion(.success(cacheImage))
+            return
+        }
+        
+        // Download image from url
+        NetworkManager.shared.fetchImage(from: url) { result in
+            switch result {
+            case .success(let imageData):
+                guard let image = UIImage(data: imageData) else { return }
+                ImageCache.shared.setObject(image, forKey: url.lastPathComponent as NSString)
+//                print("Image from network:", url.lastPathComponent)
+                completion(.success(image))
+            case .failure(let error):
+                completion(.failure(error))
+            }
         }
     }
 }
