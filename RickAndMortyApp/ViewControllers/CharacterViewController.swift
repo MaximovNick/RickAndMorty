@@ -25,8 +25,7 @@ class CharacterViewController: UIViewController {
     private var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(CharacterTableViewCell.self,
-                           forCellReuseIdentifier: CharacterTableViewCell.identifier
-        )
+                           forCellReuseIdentifier: CharacterTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -35,8 +34,8 @@ class CharacterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(tableView)
         
+        view.addSubview(tableView)
         tableView.rowHeight = 70
         tableView.backgroundColor = .black
         
@@ -128,8 +127,8 @@ extension CharacterViewController: UITableViewDelegate, UITableViewDataSource {
             for: indexPath) as? CharacterTableViewCell else {
             return UITableViewCell()
         }
-        
         cell.backgroundColor = .black
+        cell.selectionStyle = .none
         var content = cell.defaultContentConfiguration()
         content.imageProperties.cornerRadius = tableView.rowHeight / 2
         cell.contentConfiguration = content
@@ -144,6 +143,8 @@ extension CharacterViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+        
         
         let character = isFiltering
         ? filteredCharacter[indexPath.row]

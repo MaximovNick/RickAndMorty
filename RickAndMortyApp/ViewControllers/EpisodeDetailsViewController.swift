@@ -9,9 +9,10 @@ import UIKit
 
 class EpisodeDetailsViewController: UIViewController {
     
+    // MARK: - Public properties
     var episode: Episode!
     
-    //MARK: Private properties
+    // MARK: - Private properties
     private var characters: [Character] = [] {
         didSet {
             if characters.count == episode.characters.count {

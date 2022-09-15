@@ -65,7 +65,6 @@ class EpisodesViewController: UITableViewController {
         
         NetworkManager.shared.fetchEpisode(from: episodeURL) { result in
             switch result {
-                
             case .success(let episode):
                 self.episodes.append(episode)
                 content.text = episode.name
