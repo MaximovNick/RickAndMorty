@@ -24,6 +24,8 @@ class CharacterInfoViewController: UIViewController {
     
     private let characterImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -57,17 +59,20 @@ class CharacterInfoViewController: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        characterImageView.contentMode = .scaleAspectFit
-        characterImageView.clipsToBounds = true
         characterImageView.layer.cornerRadius = characterImageView.frame.width / 2
     }
     
     // MARK: - Private methods
     private func fetchImage(from url: String?) {
-        NetworkManager.shared.fetchImage(from: url) { imageData in
-            self.characterImageView.image = UIImage(data: imageData)
+        guard let imageURL = URL(string: url ?? "") else { return }
+        
+        NetworkManager.shared.fetchImage(from: imageURL) { result in
+            switch result {
+            case .success(let imageData):
+                self.characterImageView.image = UIImage(data: imageData)
+            case .failure(let error):
+                print(error)
+            }
         }
     }
     
