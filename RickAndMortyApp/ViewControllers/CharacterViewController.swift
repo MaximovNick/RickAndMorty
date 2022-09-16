@@ -34,7 +34,6 @@ class CharacterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         view.addSubview(tableView)
         tableView.rowHeight = 70
         tableView.backgroundColor = .black
@@ -144,7 +143,6 @@ extension CharacterViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        
         
         let character = isFiltering
         ? filteredCharacter[indexPath.row]
