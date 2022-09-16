@@ -107,7 +107,7 @@ extension EpisodeDetailsViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CharacterTableViewCell.identifier, for: indexPath) as? CharacterTableViewCell else { return UITableViewCell() }
-        
+        cell.selectionStyle = .none
         cell.backgroundColor = UIColor(
             red: 21/255,
             green: 32/255,

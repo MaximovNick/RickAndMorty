@@ -51,6 +51,7 @@ class EpisodesViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        cell.selectionStyle = .none
         cell.backgroundColor = UIColor(
             red: 21/255,
             green: 32/255,
