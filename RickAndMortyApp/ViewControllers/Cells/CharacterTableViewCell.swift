@@ -23,8 +23,18 @@ class CharacterTableViewCell: UITableViewCell {
     private let characterImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
+    }()
+    
+    private var activityIndicator: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView(style: .medium)
+        activity.color = .white
+        activity.startAnimating()
+        activity.hidesWhenStopped = true
+        activity.translatesAutoresizingMaskIntoConstraints = false
+        return activity
     }()
     
     private var imageURL: URL? {
@@ -40,13 +50,13 @@ class CharacterTableViewCell: UITableViewCell {
         
         addSubview(characterImageView)
         addSubview(nameLabel)
+        characterImageView.addSubview(activityIndicator)
         setConstraints()
     }
-        
+    
     override func layoutIfNeeded() {
         super.layoutIfNeeded()
         characterImageView.layer.cornerRadius = characterImageView.frame.height / 2
-        characterImageView.clipsToBounds = true
     }
     
     required init?(coder: NSCoder) {
@@ -65,6 +75,7 @@ class CharacterTableViewCell: UITableViewCell {
             case .success(let image):
                 if imageURL == self.imageURL {
                     self.characterImageView.image = image
+                    self.activityIndicator.stopAnimating()
                 }
             case .failure(let error):
                 print(error)
@@ -76,18 +87,17 @@ class CharacterTableViewCell: UITableViewCell {
     private func getImage(from url: URL, completion: @escaping(Result<UIImage, Error>) -> Void) {
         // Get image from cache
         if let cacheImage = ImageCache.shared.object(forKey: url.lastPathComponent as NSString) {
-//            print("Image from cache", url.lastPathComponent)
+            //            print("Image from cache", url.lastPathComponent)
             completion(.success(cacheImage))
             return
         }
-        
         // Download image from url
         NetworkManager.shared.fetchImage(from: url) { result in
             switch result {
             case .success(let imageData):
                 guard let image = UIImage(data: imageData) else { return }
                 ImageCache.shared.setObject(image, forKey: url.lastPathComponent as NSString)
-//                print("Image from network:", url.lastPathComponent)
+                //                print("Image from network:", url.lastPathComponent)
                 completion(.success(image))
             case .failure(let error):
                 completion(.failure(error))
@@ -102,6 +112,12 @@ extension CharacterTableViewCell {
     private func setConstraints() {
         
         NSLayoutConstraint.activate([
+            nameLabel.leadingAnchor.constraint(equalTo: characterImageView.trailingAnchor, constant: 10),
+            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            nameLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
             characterImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             characterImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 5),
             characterImageView.widthAnchor.constraint(equalToConstant: 50),
@@ -109,9 +125,9 @@ extension CharacterTableViewCell {
         ])
         
         NSLayoutConstraint.activate([
-            nameLabel.leadingAnchor.constraint(equalTo: characterImageView.trailingAnchor, constant: 5),
-            nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-            nameLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+            activityIndicator.centerXAnchor.constraint(equalTo: characterImageView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: characterImageView.centerYAnchor)
         ])
+        
     }
 }
