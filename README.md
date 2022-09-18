@@ -12,7 +12,7 @@
 
 ![](https://github.com/MaximovNick/RickAndMorty/blob/main/ScreenShots/RickAndMorty_2.png) ![](https://github.com/MaximovNick/RickAndMorty/blob/main/ScreenShots/RickAndMorty_3.png) ![](https://github.com/MaximovNick/RickAndMorty/blob/main/ScreenShots/RickAndMorty_4.png)
 
- Выбрав серию, откроется экран с информацией о ней, с названием, датой выхода серии и списком персонажей снявшихся в этой серии. После чего снова можно выбрать персонажа и узнать детальную информацию о нем. 
+Выбрав серию, откроется экран с информацией о ней, с названием, датой выхода серии и списком персонажей появившихся в этой серии. После чего снова можно выбрать персонажа и узнать детальную информацию о нем. 
  
 ![](https://github.com/MaximovNick/RickAndMorty/blob/main/ScreenShots/RickAndMorty_5.png) ![](https://github.com/MaximovNick/RickAndMorty/blob/main/ScreenShots/RickAndMorty_6.png) ![](https://github.com/MaximovNick/RickAndMorty/blob/main/ScreenShots/RickAndMorty_7.png)
 
